@@ -1,14 +1,17 @@
 import './style.css';
 
-const tasks = JSON.parse(localStorage.getItem('ToDo')) || [];
+const todo = [
+  { description: 'Set up a new project with webpack', isCompleted: false, index: 0 },
+  { description: 'Set up a new project with webpack', isCompleted: false, index: 1 },
+  { description: 'Create an index.js file', isCompleted: false, index: 2 },
+  { description: 'Write a function to iterate over the tasks array and populate an HTML', isCompleted: false, index: 3 },
+];
 
-const displayItems = () => {
-  const ul = document.getElementById('list');
-  tasks.forEach((item, index) => {
-    const CHECK = item.completed ? 'checked' : '';
-    const TROUGHLINE = item.completed ? 'line-through' : '';
-    item.index = index;
-    ul.innerHTML += `<li id="${item.index}"><input type="checkbox" class="checkbox" id="checkbox-${item.index}" ${CHECK}><input class="text ${TROUGHLINE} text-${item.index}" type="text" value ="${item.description}"><i class="fa fa-ellipsis-v open" aria-hidden="true"></i><i class="fa fa-trash-o trash d-none" aria-hidden="true"></i></li>`;
+function todoList() {
+  let todoListContent = '';
+  todo.forEach((item) => {
+    todoListContent += `<li class="task"><input class="task-check" type="checkbox"><span class="list">${item.description}</span><i class='fa fa-ellipsis-v' style="margin-left:auto"></i></li>`;
   });
-};
-displayItems();
+  document.querySelector('.todo-list').innerHTML = todoListContent;
+}
+todoList();
