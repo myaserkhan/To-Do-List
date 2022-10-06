@@ -7,28 +7,30 @@
 
 ## Built With
 
-- HTML, CSS, JavaScript
-- Webpack
+- HTML, CSS
+- JavaScript, Webpack
 
-## Live Demo (if available)
+## Live Demo
 
 [Live Demo Link](https://livedemo.com)
 
 
 ## Getting Started
 
-
 To get a local copy up and running follow these simple example steps.
 
-
+- Open terminal
+- Clone this project by the command `git clone git@github.com:myaserkhan/To-Do-list-list-structure.git`
+- `cd <clone>` folder
+- Run `npm start` in your local browser or using Live Server in Visual Studio Code.
 
 ## Authors
 
-👤 **Author1**
+👤 **Yasir Khan**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- [GitHub](https://github.com/githubhandle)
+- [Twitter](https://twitter.com/twitterhandle)
+- [LinkedIn](https://linkedin.com/in/linkedinhandle)
 
 ## 🤝 Contributing
 
