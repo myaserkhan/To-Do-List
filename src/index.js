@@ -1,11 +1,24 @@
-import * as task from './modules/status.js';
 import './style.css';
+import * as task from './modules/status.js';
 
 let list = [
-  { description: 'Set up a new project with webpack', isCompleted: false, index: 0 },
-  { description: 'Set up a new project with webpack', isCompleted: false, index: 1 },
+  {
+    description: 'Set up a new project with webpack',
+    isCompleted: false,
+    index: 0,
+  },
+  {
+    description: 'Set up a new project with webpack',
+    isCompleted: false,
+    index: 1,
+  },
   { description: 'Create an index.js file', isCompleted: false, index: 2 },
-  { description: 'Write a function to iterate over the tasks array and populate an HTML', isCompleted: false, index: 3 },
+  {
+    description:
+      'Write a function to iterate over the tasks array and populate an HTML',
+    isCompleted: false,
+    index: 3,
+  },
 ];
 
 const todoList = () => {

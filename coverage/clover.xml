@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1665588614452" clover="3.2.0">
+  <project timestamp="1665588614452" name="All files">
+    <metrics statements="15" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="2" elements="25" coveredelements="6" complexity="0" loc="15" ncloc="15" packages="1" files="1" classes="1"/>
+    <file name="status.js" path="D:\MICROVERSE\module-2\test-Yas\To-Do-List\src\modules\status.js">
+      <metrics statements="15" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="2"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="6" count="0" type="stmt"/>
+      <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="8" count="0" type="stmt"/>
+      <line num="11" count="0" type="stmt"/>
+      <line num="15" count="1" type="stmt"/>
+      <line num="20" count="1" type="stmt"/>
+      <line num="21" count="1" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="26" count="0" type="stmt"/>
+      <line num="27" count="0" type="stmt"/>
+      <line num="28" count="0" type="stmt"/>
+      <line num="33" count="0" type="stmt"/>
+      <line num="34" count="0" type="stmt"/>
+      <line num="35" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>

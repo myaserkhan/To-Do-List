@@ -12,7 +12,11 @@ export function status(elem, list) {
 }
 
 export function add(list) {
-  list.push({ description: document.querySelector('#newTask').value, isCompleted: false, index: list.length });
+  list.push({
+    description: document.querySelector('#newTask').value,
+    isCompleted: false,
+    index: list.length,
+  });
   document.querySelector('#newTask').value = '';
   saveLocal(list);
 }
