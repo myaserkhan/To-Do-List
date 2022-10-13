@@ -1,72 +1,95 @@
 import './style.css';
-import * as task from './modules/status.js';
+import IsCompleted from './modules/status.js';
 
-let list = [
-  {
-    description: 'Set up a new project with webpack',
-    isCompleted: false,
-    index: 0,
-  },
-  {
-    description: 'Set up a new project with webpack',
-    isCompleted: false,
-    index: 1,
-  },
-  { description: 'Create an index.js file', isCompleted: false, index: 2 },
-  {
-    description:
-      'Write a function to iterate over the tasks array and populate an HTML',
-    isCompleted: false,
-    index: 3,
-  },
-];
+let tasks = JSON.parse(localStorage.getItem('ToDo')) || [];
 
-const todoList = () => {
-  if (window.localStorage.getItem('localTasks')) {
-    const localTasks = window.localStorage.getItem('localTasks');
-    list = JSON.parse(localTasks);
-  }
-  document.querySelector('.todo-list').innerHTML = '';
-  list.forEach((item) => {
-    const taskElement = document.createElement('li');
-    taskElement.classList.add('task');
-    if (item.isCompleted) {
-      taskElement.classList.add('completed');
-    }
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.classList.add('task-check');
-    checkbox.addEventListener('click', () => {
-      task.status(item, list);
-      todoList();
-    });
-    checkbox.checked = item.isCompleted;
-    taskElement.appendChild(checkbox);
-    const taskText = document.createElement('input');
-    taskText.classList = 'task-text';
-    taskText.value = item.description;
-    taskText.addEventListener('change', () => {
-      if (taskText.value.length > 0) {
-        item.description = taskText.value;
-        task.saveLocal(list);
+const displayItems = () => {
+  const ul = document.getElementById('list');
+  tasks.forEach((item, index) => {
+    const CHECK = item.completed ? 'checked' : '';
+    const TROUGHLINE = item.completed ? 'line-through' : '';
+    item.index = index;
+    ul.innerHTML += `<li id="${item.index}"><input type="checkbox" class="checkbox" id="checkbox-${item.index}" ${CHECK}><input class="text ${TROUGHLINE} text-${item.index}" type="text" value ="${item.description}"><i class="fa fa-ellipsis-v open" aria-hidden="true"></i><i class="fa fa-trash-o trash d-none" aria-hidden="true"></i></li>`;
+  });
+  IsCompleted.completeToDo(tasks);
+  IsCompleted.changeIcon();
+};
+displayItems();
+
+const clearItems = () => {
+  const ul = document.getElementById('list');
+  ul.innerHTML = '';
+};
+
+const addToTheList = () => {
+  const input = document.getElementById('input');
+  input.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      const task = input.value;
+      if (task) {
+        const newTask = { description: task, completed: false, index: tasks.length };
+        tasks.push(newTask);
+        clearItems();
+        displayItems();
+        IsCompleted.updateLocalStorage(tasks);
       }
-    });
-    taskElement.appendChild(taskText);
-    const dragIcon = document.createElement('i');
-    dragIcon.classList = 'fas fa-ellipsis-v drag icon';
-    taskElement.appendChild(dragIcon);
-    taskElement.draggable = 'true';
-    document.querySelector('.todo-list').appendChild(taskElement);
+      input.value = '';
+      event.preventDefault();
+    }
+  });
+};
+addToTheList();
+
+const clearAllCompleted = () => {
+  const ul = document.getElementById('list');
+  const clearItems = document.getElementById('clear-items-completed');
+  clearItems.addEventListener('click', () => {
+    tasks = tasks.filter((task) => !task.completed);
+    ul.innerHTML = '';
+    displayItems();
+    IsCompleted.updateLocalStorage(tasks);
+  });
+};
+clearAllCompleted();
+
+const remove = () => {
+  window.addEventListener('click', (e) => {
+    const ul = document.getElementById('list');
+    if (e.target && e.target.className.includes('trash')) {
+      const id = parseInt(e.target.parentNode.id, 10);
+      tasks = tasks.filter((task) => task.index !== id);
+      ul.innerHTML = '';
+      displayItems();
+      IsCompleted.updateLocalStorage(tasks);
+    } else if (e.target && !e.target.className.includes('text')) {
+      const allLi = document.querySelector('#list').childNodes;
+      allLi.forEach((list) => {
+        const innerInput = list.querySelector('.text');
+
+        innerInput.parentNode.querySelector('.trash').className = 'fa fa-trash-o trash d-none';
+        innerInput.parentNode.querySelector('.open').classList.remove('d-none');
+        innerInput.parentNode.style.backgroundColor = '';
+        innerInput.style.backgroundColor = '';
+      });
+    }
   });
 };
 
-todoList();
-document.querySelector('#taskForm').addEventListener('submit', (event) => {
-  event.preventDefault();
-  task.add(list);
-  todoList();
-});
-document.querySelector('.clearer').addEventListener('click', () => {
-  task.removeDone(list);
-  todoList();
-});
+remove();
+
+const editDesc = () => {
+  const ul = document.getElementById('list');
+  const inputs = document.querySelectorAll('.text');
+  inputs.forEach((input, index) => {
+    ul.addEventListener('keydown', (e) => {
+      const { value } = e.target;
+      if (e.target.className.includes(`text-${index}`) && e.key === 'Enter' && value !== '') {
+        tasks[index].description = value;
+        ul.innerHTML = '';
+        displayItems();
+        IsCompleted.updateLocalStorage(tasks);
+      }
+    });
+  });
+};
+editDesc();
